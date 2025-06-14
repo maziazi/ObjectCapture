@@ -11,7 +11,7 @@ struct StartingOverlayView: View {
     var body: some View {
         VStack{
             Spacer()
-            Text("Move close and center the dot on your object")
+            Text("Move close and center the dot on your object, then tap continue")
                 .font(.footnote)
             HStack{
                 Button(
