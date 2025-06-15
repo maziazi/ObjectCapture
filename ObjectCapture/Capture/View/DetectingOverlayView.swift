@@ -8,47 +8,81 @@
 import SwiftUI
 
 public struct DetectingOverlayView: View {
+    let startCaptureAction: () -> Void
+    let galleryAction: () -> Void
+    let helpAction: () -> Void
+    let cancelAction: () -> Void
+    
     public var body: some View {
-        VStack{
-            Button(
-                action:{},
-                label:{ Image(systemName:"xmark.circle").foregroundStyle(.red)}
-            )
-            .buttonStyle(PlainButtonStyle())
-            .cornerRadius(10)
-            .padding(.trailing, 330)
-            Spacer()
-            Text("Move around to ensure that the whole object is inside the box. Drag handles to manually resize.")
-                .font(.footnote)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 40)
-            HStack{
-                Button(
-                    action:{},
-                    label:{ Image(systemName: "folder")}
-                )
+        VStack {
+            // Cancel button
+            HStack {
+                Button(action: cancelAction) {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.title2)
+                        .foregroundStyle(.red)
+                        .background(.white, in: Circle())
+                }
                 .buttonStyle(PlainButtonStyle())
-                .padding(.leading, 60)
+                
                 Spacer()
-                Button(
-                    action:{},
-                    label:{ Text("Start Capture").padding(.horizontal, 10)}
-                )
-                .buttonStyle(BorderedProminentButtonStyle())
-                .cornerRadius(100)
-                Spacer()
-                Button(
-                    action:{},
-                    label:{ Image(systemName: "questionmark.circle")}
-                )
-                .buttonStyle(PlainButtonStyle())
-                .padding(.trailing, 60)
             }
-            .padding(.bottom, 15)
+            .padding()
+            
+            Spacer()
+            
+            // Instructions
+            VStack(spacing: 16) {
+                Text("Move around to ensure that the whole object is inside the box. Drag handles to manually resize.")
+                    .font(.footnote)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 40)
+                    .padding(.vertical, 12)
+                    .background(.black.opacity(0.6))
+                    .cornerRadius(12)
+            }
+            
+            // Action buttons
+            HStack(spacing: 60) {
+                Button(action: galleryAction) {
+                    Image(systemName: "folder")
+                        .font(.title2)
+                        .foregroundStyle(.white)
+                        .frame(width: 44, height: 44)
+                        .background(.black.opacity(0.6))
+                        .cornerRadius(22)
+                }
+                
+                Button(action: startCaptureAction) {
+                    Text("Start Capture")
+                        .font(.headline)
+                        .padding(.horizontal, 24)
+                        .padding(.vertical, 12)
+                }
+                .buttonStyle(BorderedProminentButtonStyle())
+                .cornerRadius(25)
+                
+                Button(action: helpAction) {
+                    Image(systemName: "questionmark.circle")
+                        .font(.title2)
+                        .foregroundStyle(.white)
+                        .frame(width: 44, height: 44)
+                        .background(.black.opacity(0.6))
+                        .cornerRadius(22)
+                }
+            }
+            .padding(.bottom, 50)
         }
     }
 }
 
 #Preview {
-    DetectingOverlayView()
+    DetectingOverlayView(
+        startCaptureAction: {},
+        galleryAction: {},
+        helpAction: {},
+        cancelAction: {}
+    )
+    .background(.black)
 }
